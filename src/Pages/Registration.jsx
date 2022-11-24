@@ -17,13 +17,17 @@ const Registration = () => {
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user)
                 const userInfo = {
                     displayName: data.name,
                 }
                 updateUserInfo(userInfo)
                     .then(() => {
-                        
+                        saveUser(
+                            data.name, 
+                            data.email,
+                            data.userStatus,
+                            data.password
+                            );
                     })
                     .catch(err => console.log(err));
             })
@@ -35,13 +39,32 @@ const Registration = () => {
         googleLongIn(googleProvider)
             .then((result) => {
                 const user = result.user;
+                saveUser(
+                    user.displayName, 
+                    user.email,
+                    "buyer",
+                    );
                 setError('')
+                console.log(user)
             }).catch((error) => {
                 const errorMessage = error.message;
                 setError(errorMessage)
             });
         }
-
+        const saveUser = (name, email, userStatus, password) =>{
+            const user ={name, email, userStatus, password};
+            fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            .then(res => res.json())
+            .then(data =>{
+                // user
+            })
+        }
     
     return (
         <div className='h-[800px] flex justify-center bg-[#093444] items-center'>
@@ -56,7 +79,7 @@ const Registration = () => {
                         {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs">
-                        <select selected name="userCondition" {...register("userCondition")} className='input input-bordered w-full max-w-xs mt-3'>
+                        <select selected name="userStatus" {...register("userStatus")} className='input input-bordered w-full max-w-xs mt-3'>
                             <option  value='buyer' >Buyer</option>
                             <option  value='seller' >Seller</option>
                         </select>
