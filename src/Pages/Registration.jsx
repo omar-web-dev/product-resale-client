@@ -2,16 +2,18 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from './Context/AuthProvide';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Registration = () => {
-    const { createUser , updateUserInfo } = useContext(AuthContext);
-    const [registrationError, setRegistrationError] = useState('');
+    const googleProvider = new GoogleAuthProvider();
+    const { createUser, googleLongIn, updateUserInfo} = useContext(AuthContext);
+    const [error, setError] = useState('');
     const [checkCondition, setCheckCondition] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
     
     const handleSignUp = (data) => {
         setCheckCondition(data?.checkCondition)
-        setRegistrationError('');
+        setError('');
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
@@ -26,9 +28,19 @@ const Registration = () => {
                     .catch(err => console.log(err));
             })
             .catch(error => {
-                setRegistrationError(error.message)
+                setError(error.message)
             });
     }
+    const handelGoogleLogIn = () => {
+        googleLongIn(googleProvider)
+            .then((result) => {
+                const user = result.user;
+                setError('')
+            }).catch((error) => {
+                const errorMessage = error.message;
+                setError(errorMessage)
+            });
+        }
 
     
     return (
@@ -77,11 +89,11 @@ const Registration = () => {
                     </div>
                     <input className={`btn btn-accent w-full mt-4`} 
                      value="Sign Up" type="submit" />
-                    {registrationError && <p className='text-red-600'>{registrationError}</p>}
+                    {error && <p className='text-red-600'>{error}</p>}
                 </form>
                 <p className='text-white'>Already have an account <Link className='text-secondary' to="/login">Please Login</Link></p>
                 <div className="divider text-white">OR</div>
-                <button className='btn btn-outline w-full bg-orange-500'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handelGoogleLogIn} className='btn btn-outline w-full bg-orange-500'>CONTINUE WITH GOOGLE</button>
 
             </div>
         </div>

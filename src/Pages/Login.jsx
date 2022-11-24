@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from './Context/AuthProvide';
@@ -5,16 +6,17 @@ import { AuthContext } from './Context/AuthProvide';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn , googleLongIn} = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider();
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [error, setError] = useState()
 
     const handleLogin = data => {
         setLoginError('');
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
                 setLoginUserEmail(data.email);
             })
             .catch(error => {
@@ -22,6 +24,18 @@ const Login = () => {
                 setLoginError(error.message);
             });
     }
+
+    const handelGoogleLogIn = () => {
+        googleLongIn(googleProvider)
+            .then((result) => {
+                const user = result.user;
+                setError('')
+            }).catch((error) => {
+                const errorMessage = error.message;
+                setError(errorMessage)
+            });
+        }
+
     return (
         <div className='h-[800px] flex justify-center items-center bg-[#093444]'>
             <div className='w-96 p-7'>
@@ -65,7 +79,7 @@ const Login = () => {
 
                 
                 <div className="divider text-white">OR</div>
-                <button className='btn btn-outline bg-orange-500 text w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handelGoogleLogIn} className='btn btn-outline bg-orange-500 text w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
