@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const Registration = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser , updateUserInfo } = useContext(AuthContext);
     const [registrationError, setRegistrationError] = useState('');
     const [checkCondition, setCheckCondition] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -15,7 +15,15 @@ const Registration = () => {
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-
+                console.log(user)
+                const userInfo = {
+                    displayName: data.name,
+                }
+                updateUserInfo(userInfo)
+                    .then(() => {
+                        
+                    })
+                    .catch(err => console.log(err));
             })
             .catch(error => {
                 setRegistrationError(error.message)
@@ -36,7 +44,7 @@ const Registration = () => {
                         {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs">
-                        <select selected name="user_stases" {...register("user_stases")} className='input input-bordered w-full max-w-xs mt-3'>
+                        <select selected name="userCondition" {...register("userCondition")} className='input input-bordered w-full max-w-xs mt-3'>
                             <option  value='buyer' >Buyer</option>
                             <option  value='seller' >Seller</option>
                         </select>
