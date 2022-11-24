@@ -21,6 +21,7 @@ const Navbar = () => {
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/'>service</Link></li>
             <li><Link to='/'>Contact Us</Link></li>
+            <li><Link to='registration'>Registration</Link></li>
         </>
     return (
         <div className="mx-auto max-w-[1440px] py-5 px-[3%]">
@@ -80,7 +81,7 @@ const Navbar = () => {
                         </ul>
 
                     </div>
-                    <>
+                    <div className='ml-4'>
                         {user?.uid ?
                             <>
                                 <div className="avatar " onClick={profileToggle}>
@@ -101,7 +102,7 @@ const Navbar = () => {
                             </>
                             :
                             <Link to='login' className="btn text-white  border-0 bg-orange-500">Login</Link>}
-                    </>
+                    </div>
                 </div>
             </div>
         </div>
