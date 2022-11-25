@@ -3,12 +3,15 @@ import { AuthContext } from './Context/AuthProvide';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useToken from '../CostomHooks/useToken';
 
 const Registration = () => {
     const googleProvider = new GoogleAuthProvider();
     const { createUser, googleLongIn, updateUserInfo} = useContext(AuthContext);
     const [error, setError] = useState('');
     const [checkCondition, setCheckCondition] = useState(false);
+    const [userEmail, setUserEmail] = useState('')
+    const [token] = useToken(userEmail);
     const { register, handleSubmit, formState: { errors } } = useForm();
     
     const handleSignUp = (data) => {
@@ -35,9 +38,10 @@ const Registration = () => {
                 setError(error.message)
             });
     }
-    const handelGoogleLogIn = () => {
+    const handelGoogleLogIn = (email) => {
         googleLongIn(googleProvider)
             .then((result) => {
+                setUserEmail(email);
                 const user = result.user;
                 saveUser(
                     user.displayName, 
@@ -62,7 +66,7 @@ const Registration = () => {
             })
             .then(res => res.json())
             .then(data =>{
-                // user
+                setUserEmail(email);
             })
         }
     

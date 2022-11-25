@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvide';
 
-const Navbar = () => {
+const DashboardNavbar = () => {
     const { user, userSignOut } = useContext(AuthContext)
     const [toggle, setToggle] = useState(false)
 
@@ -19,13 +19,10 @@ const Navbar = () => {
     const navItems =
         <>
             <li><Link to='/'>Home</Link></li>
-            <li><Link to='/'>service</Link></li>
-            <li><Link to='/'>Contact Us</Link></li>
-            <li><Link to='registration'>Registration</Link></li>
             <li><Link to='dashboard'>Dashboard</Link></li>
         </>
     return (
-        <div className="mx-auto max-w-[1440px] py-5 px-[3%] ">
+        <div className="mx-auto max-w-[1440px] py-5 px-[3%]">
             <div className=" bg-base-100">
                 <div className="navbar justify-between md:hidden">
                     {/* mobile */}
@@ -51,23 +48,23 @@ const Navbar = () => {
                     </div>
                     <>
                         {user?.uid &&
-                            <>
-                                <div className="avatar " onClick={profileToggle}>
+                            <div className='z-1 relative'>
+                                <div className="avatar" onClick={profileToggle}>
                                     <div className="w-10 mt-3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                                         <img src={user?.photoURL} alt='user' />
                                     </div>
                                 </div>
                                 <ul id='profile' className={`"absolute z-50 top-24 right-0 left-0 menu dropdown-content p-2 shadow bg-base-100 rounded-box w-full mt-4" 
-                        ${toggle ? 'absolute' : "hidden"}`}>
+                        ${toggle ? 'absolute z-50' : "hidden"}`}>
                                     {user?.displayName &&
-                                        <li className='z-50'><Link>{user?.displayName}</Link></li>
+                                        <li><Link>{user?.displayName}</Link></li>
                                     }
                                     <li><Link>View Profile</Link></li>
-                                    <li className='z-50'>
+                                    <li>
                                         <button onClick={handleSingOut} className=''  >Sign out</button>
                                     </li>
                                 </ul>
-                            </>}
+                            </div>}
                     </>
                 </div>
                 {/* desktop   */}
@@ -84,14 +81,14 @@ const Navbar = () => {
                     </div>
                     <div className='ml-4'>
                         {user?.uid ?
-                            <div className='z-50'>
+                            <>
                                 <div className="avatar " onClick={profileToggle}>
                                     <div className="w-10 mt-3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                                         <img src={user?.photoURL} alt='user' />
                                     </div>
                                 </div>
-                                <ul id='profile' className={`" absolute  top-20 right-20 menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4" 
-                        ${toggle ? 'absolute z-50' : "hidden"}`}>
+                                <ul id='profile' className={`"absolute  top-24 right-20 menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4" 
+                        ${toggle ? 'absolute' : "hidden"}`}>
                                     {user?.displayName &&
                                         <li><Link>{user?.displayName}</Link></li>
                                     }
@@ -100,7 +97,7 @@ const Navbar = () => {
                                         <button onClick={handleSingOut} className=''  >Sign out</button>
                                     </li>
                                 </ul>
-                            </div>
+                            </>
                             :
                             <Link to='login' className="btn text-white  border-0 bg-orange-500">Login</Link>}
                     </div>
@@ -110,4 +107,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default DashboardNavbar;
