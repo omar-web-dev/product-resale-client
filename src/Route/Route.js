@@ -5,8 +5,8 @@ import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
-import MyProduct from "../Pages/Dashboard/MyProduct/MyProduct";
 import AddProduct from "../Pages/Dashboard/Product/AddProduct";
+import MyProduct from "../Pages/Dashboard/Product/MyProduct";
 
 const router = createBrowserRouter([
     {
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       element: <DashboardLayout />,
       children : [
         {
-          path : './dashboard',
+          path : '/dashboard/my-product',
           element : <MyProduct/>
         },
         {

@@ -30,8 +30,10 @@ const AddProduct = () => {
         })
         .then(res => res.json())
         .then(data =>{
+            if(data?.acknowledged){
+                alert('product added')
+            }
             console.log(data)
-            alert('product added')
         }).catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage)

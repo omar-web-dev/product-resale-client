@@ -22,7 +22,7 @@ const Navbar = () => {
             <li><Link to='/'>service</Link></li>
             <li><Link to='/'>Contact Us</Link></li>
             <li><Link to='registration'>Registration</Link></li>
-            <li><Link to='dashboard'>Dashboard</Link></li>
+            <li><Link to='dashboard/my-product'>Dashboard</Link></li>
         </>
     return (
         <div className="mx-auto max-w-[1440px] py-5 px-[3%] ">
