@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../Context/AuthProvide';
 
 const AddProduct = () => {
+    const {user} = useContext(AuthContext)
+    const userEmail = user?.email 
+    
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [error, setError] = useState()
 
@@ -16,11 +20,12 @@ const AddProduct = () => {
             data.city,
             data.state,
             data.zip,
+            userEmail
         );
     }
 
     const saveUser = (productTitle, price, oldPrice, usedYear, condition, city, state, zip) =>{
-        const user ={productTitle, price, oldPrice, usedYear, condition, city, state, zip};
+        const user ={productTitle, price, oldPrice, usedYear, condition, city, state, zip, userEmail};
         fetch('http://localhost:5000/add-product', {
             method: 'POST',
             headers: {
@@ -31,7 +36,7 @@ const AddProduct = () => {
         .then(res => res.json())
         .then(data =>{
             if(data?.acknowledged){
-                alert('product added')
+                // alert('product added')
             }
             console.log(data)
         }).catch((error) => {

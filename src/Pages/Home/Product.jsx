@@ -4,11 +4,11 @@ const Product = () => {
 
     return (
         <section className='product-section px-[5%] mx-auto max-w-[1440px] lg:my-20'>
-            <div className="lg:flex block justify-between mb-10">
+            <div className="mb-10">
                 <div>
                     <h2 className="text-3xl mt-10 text-orange-500 md:text-4xl">Collection</h2>
                 </div>
-                <div className='grid grid-cols-1 gap-2 md:grid-cols-2 mt-5 justify-center text-xl md:text-2xl font-semibold cursor-pointer hover:text-orange-500  text-center'>
+                <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 mt-5 justify-center text-xl md:text-2xl font-semibold cursor-pointer hover:text-orange-500  text-center'>
                     <p className='text-xl hover:text-orange-500 md:px-3 text-center bg-slate-200 rounded-md py-2'>Living Room Furniture</p>
                     <p className='text-xl hover:text-orange-500 md:px-3 text-center bg-slate-200 rounded-md py-2'>Bedroom Furniture</p>
                     <p className='text-xl hover:text-orange-500 md:px-3 text-center bg-slate-200 rounded-md py-2'>Office Furniture</p>

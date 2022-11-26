@@ -9,42 +9,38 @@ import AddProduct from "../Pages/Dashboard/Product/AddProduct";
 import MyProduct from "../Pages/Dashboard/Product/MyProduct";
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main />,
-      children: [
-        {
-          path: "/",
-          element: <Home/>,
-        },
-        {
-          path: "login",
-          element: <Login/>,
-        },
-        {
-          path: "registration",
-          element: <Registration/>,
-        },
-        
-      ]
-    },{
-      path: "/dashboard",
-      element: <DashboardLayout />,
-      children : [
-        {
-          path : '/dashboard/my-product',
-          element : <MyProduct/>
-        },
-        {
-          path : '/dashboard/my-product',
-          element : <MyProduct/>
-        },
-        {
-          path : '/dashboard/add-product',
-          element : <AddProduct/>
-        },
-        
-      ]
-    }
-  ]);
-  export default router 
+  {
+    path: "/",
+    element: <Main />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "registration",
+        element: <Registration />,
+      },
+
+    ]
+  }, {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: '/dashboard/my-product',
+        element: <MyProduct />
+      },
+      {
+        path: '/dashboard/add-product',
+        element: <AddProduct />
+      },
+
+    ]
+  }
+]);
+export default router 

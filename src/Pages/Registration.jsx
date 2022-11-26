@@ -6,37 +6,58 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../CostomHooks/useToken';
 
 const Registration = () => {
+    const {user} = useContext(AuthContext)
     const googleProvider = new GoogleAuthProvider();
-    const { createUser, googleLongIn, updateUserInfo} = useContext(AuthContext);
+    const { createUser, googleLongIn, updateUserInfo } = useContext(AuthContext);
     const [error, setError] = useState('');
     const [checkCondition, setCheckCondition] = useState(false);
     const [userEmail, setUserEmail] = useState('')
     const [token] = useToken(userEmail);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    
+    const imageKey = process.env.REACT_APP_image_key;
+
     const handleSignUp = (data) => {
         setCheckCondition(data?.checkCondition)
         setError('');
-        createUser(data.email, data.password)
-            .then(result => {
-                const user = result.user;
-                const userInfo = {
-                    displayName: data.name,
+
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=6a56f720ef5af169c2b3789d5fb3086f`
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    console.log(imgData.data.url);
+                    createUser(data.email, data.password)
+                        .then(result => {
+                            const user = result.user;
+                            const userInfo = {
+                                displayName: data.name,
+                                photoURL : imgData.data.url
+                                
+                            }
+                            updateUserInfo(userInfo)
+                                .then(() => {
+                                    saveUser(
+                                        data.name,
+                                        data.email,
+                                        data.userStatus,
+                                        data.password,
+                                        {photoURL : imgData?.data?.url}
+                                    );
+                                })
+                                .catch(err => console.log(err));
+                        })
+                        .catch(error => {
+                            setError(error.message)
+                        });
                 }
-                updateUserInfo(userInfo)
-                    .then(() => {
-                        saveUser(
-                            data.name, 
-                            data.email,
-                            data.userStatus,
-                            data.password
-                            );
-                    })
-                    .catch(err => console.log(err));
+
             })
-            .catch(error => {
-                setError(error.message)
-            });
     }
     const handelGoogleLogIn = (email) => {
         googleLongIn(googleProvider)
@@ -44,36 +65,37 @@ const Registration = () => {
                 setUserEmail(email);
                 const user = result.user;
                 saveUser(
-                    user.displayName, 
+                    user.displayName,
                     user.email,
                     "buyer",
-                    );
+                );
                 setError('')
                 console.log(user)
             }).catch((error) => {
                 const errorMessage = error.message;
                 setError(errorMessage)
             });
-        }
-        const saveUser = (name, email, userStatus, password) =>{
-            const user ={name, email, userStatus, password};
-            fetch('http://localhost:5000/users', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            })
+    }
+    const saveUser = (name, email, userStatus, password) => {
+        const user = { name, email, userStatus, password };
+
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
             .then(res => res.json())
-            .then(data =>{
+            .then(data => {
                 setUserEmail(email);
             })
-        }
-    
+    }
+
     return (
         <div className='h-[800px] flex justify-center bg-[#093444] items-center'>
             <div className='w-96 p-7'>
-            <h2 className='text-5xl text-center font-semibold font-[Lexend Deca] text-white'>Registration</h2>
+                <h2 className='text-5xl text-center font-semibold font-[Lexend Deca] text-white'>Registration</h2>
                 <form onSubmit={handleSubmit(handleSignUp)}>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="text-white label-text">Name</span></label>
@@ -84,9 +106,15 @@ const Registration = () => {
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <select selected name="userStatus" {...register("userStatus")} className='input input-bordered w-full max-w-xs mt-3'>
-                            <option  value='buyer' >Buyer</option>
-                            <option  value='seller' >Seller</option>
+                            <option value='buyer' >Buyer</option>
+                            <option value='seller' >Seller</option>
                         </select>
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="text-white label-text">Image</span></label>
+                        <input type="file" {...register("image", {
+                        })} className="input input-bordered w-full max-w-xs" />
+                        {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="text-white label-text">Email</span></label>
@@ -114,8 +142,8 @@ const Registration = () => {
                         </div>
                         <p className='text-[#20DF7F]'>see now</p>
                     </div>
-                    <input className={`btn btn-accent w-full mt-4`} 
-                     value="Sign Up" type="submit" />
+                    <input className={`btn btn-accent w-full mt-4`}
+                        value="Sign Up" type="submit" />
                     {error && <p className='text-red-600'>{error}</p>}
                 </form>
                 <p className='text-white'>Already have an account <Link className='text-secondary' to="/login">Please Login</Link></p>

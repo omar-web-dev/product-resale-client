@@ -23,6 +23,15 @@ const AuthProvider = ({children}) => {
         return updateProfile(auth.currentUser, userInfo);
     }
 
+    const [userRole, setUserRole] = useState([])
+
+    // loaded all users
+    useEffect(() => {
+        fetch(`http://localhost:5000/users-role?userStatus=seller`)
+        .then(res => res.json())
+        .then(data => setUserRole({data, user}))
+    }, [user])
+
     const googleLongIn = provider =>{
         return signInWithPopup(auth, provider)
     }
@@ -42,7 +51,8 @@ const AuthProvider = ({children}) => {
         userSignOut,
         createUser,
         updateUserInfo,
-        googleLongIn
+        googleLongIn, 
+        userRole
     }
     return (
         <AuthContext.Provider value={authInfo}>
