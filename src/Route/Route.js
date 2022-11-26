@@ -7,6 +7,7 @@ import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
 import AddProduct from "../Pages/Dashboard/Product/AddProduct";
 import MyProduct from "../Pages/Dashboard/Product/MyProduct";
+import SellerRoutes from "./SellerRoute/SellerRoutes";
 
 const router = createBrowserRouter([
   {
@@ -33,11 +34,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/dashboard/my-product',
-        element: <MyProduct />
+        element: <SellerRoutes><MyProduct /></SellerRoutes>
       },
       {
         path: '/dashboard/add-product',
-        element: <AddProduct />
+        element: <SellerRoutes><AddProduct /></SellerRoutes>
       },
 
     ]

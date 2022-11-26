@@ -1,34 +1,21 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import useAdmin from '../../Hook/useAdmin';
 import { AuthContext } from '../../Pages/Context/AuthProvide';
-import SellerR from './SellerR';
 
 const SellerRoutes = ({ children }) => {
-    const { user, loading, userRole } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    const [realUser, setRealUser] = useState()
+    const [isSeller] = useAdmin(realUser);
 
-    // console.log(userRole)
+    useEffect(() => {
+        fetch(`http://localhost:5000/users-email?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => setRealUser(data[0]))
+    }, [user?.email])
 
-
-    // console.log(userRole)
-    // const {userRole} = useContext(AuthContext)
-
-    // const [isAdmin, isAdminLoading] = useAdmin(user?.email);
-    // const location = useLocation();
-
-    // if (loading || isAdminLoading) {
-    //     return <Loading></Loading>
-    // }
-
-
-    // if (userRoles) {
-    //     return children;
-    // }
-
-
-    // return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
-
-    return (
-        userRole.map(ur => <SellerR children={children} ur={ur} key={ur._id} />)
-    )
+    if (isSeller) {
+        return children
+    }
 };
 
 

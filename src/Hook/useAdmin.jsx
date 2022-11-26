@@ -24,5 +24,8 @@ const useAdmin = realUser => {
     }, [realUser])
     return [isAdmin, isSeller, isBuyer]
 }
+// useEffect(()=>{
+    
+// },[user?.email])
 
 export default useAdmin;
