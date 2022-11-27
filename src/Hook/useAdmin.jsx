@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { AuthContext } from "../Pages/Context/AuthProvide";
 
 const useAdmin = realUser => {
+    const {user} = useContext(AuthContext)
     const [isAdmin, setIsAdmin] = useState(false);
     const [isSeller, setIsSeller] = useState(false);
     const [isBuyer, setIsBuyer] = useState(false);
@@ -21,7 +23,7 @@ const useAdmin = realUser => {
                 .then(data => {
                 })
         }
-    }, [realUser])
+    }, [user, realUser])
     return [isAdmin, isSeller, isBuyer]
 }
 // useEffect(()=>{

@@ -1,11 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Context/AuthProvide';
 
 const AddProduct = () => {
-    const {user} = useContext(AuthContext)
-    const userEmail = user?.email 
-    
+
+    const [categorize, setCategorize] = useState([])
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/categorize`)
+            .then(res => res.json())
+            .then(data => setCategorize(data))
+    }, [])
+
+    const { user } = useContext(AuthContext)
+    const userEmail = user?.email
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [error, setError] = useState()
 
@@ -17,15 +26,16 @@ const AddProduct = () => {
             data.oldPrice,
             data.usedYear,
             data.condition,
+            data.category,
             data.city,
             data.state,
             data.zip,
-            userEmail
         );
     }
 
-    const saveUser = (productTitle, price, oldPrice, usedYear, condition, city, state, zip) =>{
-        const user ={productTitle, price, oldPrice, usedYear, condition, city, state, zip, userEmail};
+    const saveUser = (productTitle, price, oldPrice, usedYear, condition,category, city, state, zip, ct) => {
+        const user = { productTitle, price, oldPrice, usedYear, condition, city, state, zip, email: userEmail , category};
+        console.log(user)
         fetch('http://localhost:5000/add-product', {
             method: 'POST',
             headers: {
@@ -33,17 +43,17 @@ const AddProduct = () => {
             },
             body: JSON.stringify(user)
         })
-        .then(res => res.json())
-        .then(data =>{
-            if(data?.acknowledged){
-                // alert('product added')
-            }
-            console.log(data)
-        }).catch((error) => {
-            const errorMessage = error.message;
-            console.log(errorMessage)
-            setError(errorMessage)
-        });
+            .then(res => res.json())
+            .then(data => {
+                if (data?.acknowledged) {
+                    // alert('product added')
+                }
+                console.log(data)
+            }).catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                setError(errorMessage)
+            });
     }
 
     return (
@@ -72,6 +82,15 @@ const AddProduct = () => {
                             <input id="oldPrice" type="text"
                                 {...register("oldPrice")}
                                 placeholder="$000" className="w-full rounded-md focus:ring p-2 focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 text-gray-900" />
+                        </div>
+
+                        <div className="col-span-full ">
+                            <label htmlFor="category" className="text-sm">Category</label>
+                            <select selected id='category' {...register("category")} className='w-full rounded-md focus:ring p-2 focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 text-gray-900" '>
+                                {categorize.map(ct => <option key={ct?._id} value={ct?.category}>
+                                    {ct?.category}
+                                </option>)}
+                            </select>
                         </div>
 
                         <div className="col-span-full ">

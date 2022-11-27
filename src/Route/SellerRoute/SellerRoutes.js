@@ -8,7 +8,8 @@ const SellerRoutes = ({ children }) => {
     const [isSeller] = useAdmin(realUser);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users-email?email=${user?.email}`)
+        fetch(`http://localhost:5000/users/seller/email?email=${user?.email}`)
+        // fetch(`http://localhost:5000/users-email?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setRealUser(data[0]))
     }, [user?.email])

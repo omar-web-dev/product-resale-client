@@ -11,6 +11,7 @@ const Login = () => {
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [error, setError] = useState()
+    const [userEmail, setUserEmail] = useState('')
 
     const handleLogin = data => {
         setLoginError('');
@@ -24,12 +25,32 @@ const Login = () => {
                 setLoginError(error.message);
             });
     }
+    const saveUser = (name, email, userStatus, password) => {
+        const user = { name, email, userStatus, password };
+
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setUserEmail(email);
+            })
+    }
 
     const handelGoogleLogIn = () => {
         googleLongIn(googleProvider)
             .then((result) => {
                 const user = result.user;
                 setError('')
+                saveUser(
+                    user.displayName,
+                    user.email,
+                    "buyer",
+                );
             }).catch((error) => {
                 const errorMessage = error.message;
                 setError(errorMessage)

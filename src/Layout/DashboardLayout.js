@@ -4,9 +4,6 @@ import useAdmin from '../Hook/useAdmin';
 import { AuthContext } from '../Pages/Context/AuthProvide';
 import DashboardNavbar from '../Pages/SharedPages/DashboardNavbar';
 import Footer from '../Pages/SharedPages/Footer';
-import SellerRoutes from '../Route/SellerRoute/SellerRoutes';
-import BuyerRoute from '../Route/Buyer/BuyerRoute';
-import AdminRoute from '../Route/Admin/AdminRoute';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
@@ -15,6 +12,7 @@ const DashboardLayout = () => {
     console.log(isAdmin, isSeller, isBuyer)
     useEffect(()=>{
         fetch(`http://localhost:5000/users-email?email=${user?.email}`)
+        // fetch(`http://localhost:5000/users/admin/:email=${user?.email}`)
         .then(res => res.json())
         .then(data => setRealUser(data[0]))
     },[user?.email])
@@ -39,16 +37,15 @@ const DashboardLayout = () => {
         {
             isAdmin &&
             <>
-                <li><Link to={'/dashboard/my-product'} >ADMIN</Link></li>
-                <li><Link to={'/dashboard/my-product'} >My Product</Link></li>
-                <li><Link to={'/dashboard/add-product'} >Add Product</Link></li>
+                <li><Link to={'/dashboard/buyers'} >Buyers</Link></li>
+                <li><Link to={'/dashboard/sellers'} >Sellers</Link></li>
             </>
         }
         {isBuyer &&
             <>
                 <li><Link to={'/dashboard/my-product'} >Buyer</Link></li>
-                <li><Link to={'/dashboard/my-product'} >My Product</Link></li>
-                <li><Link to={'/dashboard/add-product'} >Add Product</Link></li>
+                <li><Link to={'/dashboard/my-orders'} >My Orders</Link></li>
+                {/* <li><Link to={'/dashboard/add-product'} >Add Product</Link></li> */}
             </>
             }
             {
