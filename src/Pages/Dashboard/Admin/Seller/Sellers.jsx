@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import SellerCard from './Seller/SellerCard';
+import SellerCard from './SellerCard';
 
 const Sellers = () => {
     const [sellers, setSeller] = useState([])

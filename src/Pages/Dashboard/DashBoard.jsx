@@ -1,10 +1,9 @@
-import React, {useContext} from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { AuthContext } from '../Context/AuthProvide';
+import { useContext } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvide";
 
 const DashBoard = ({ userRole }) => {
     const {user} = useContext(AuthContext)
-    // console.log(userRole?.email, user?.email);
 
     return (
         <div>

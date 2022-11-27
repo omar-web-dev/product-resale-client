@@ -1,7 +1,7 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { AuthContext } from './Context/AuthProvide';
+import { AuthContext } from '../Context/AuthProvide';
 
 
 const Login = () => {

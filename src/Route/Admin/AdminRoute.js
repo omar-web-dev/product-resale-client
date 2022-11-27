@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Context/AuthProvide";
 import useAdmin from "../../Hook/useAdmin";
-import { AuthContext } from "../../Pages/Context/AuthProvide";
+// import { AuthContext } from "../../Pages/Context/AuthProvide";
 
 const AdminRoute = ({ children }) => {
     const { user } = useContext(AuthContext);

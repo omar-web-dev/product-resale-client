@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Categorize from './Categorize';
+import Categorize from '../Category/Categorize';
+// import Categorize from './Categorize';
 import ProductCard from './ProductCard';
 
 const Product = () => {

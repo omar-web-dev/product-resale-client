@@ -1,9 +1,9 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
-import { AuthContext } from './Context/AuthProvide';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { GoogleAuthProvider } from 'firebase/auth';
-import useToken from '../CostomHooks/useToken';
+import { AuthContext } from '../Context/AuthProvide';
+
 
 const Registration = () => {
     const {user} = useContext(AuthContext)
@@ -12,7 +12,7 @@ const Registration = () => {
     const [error, setError] = useState('');
     const [checkCondition, setCheckCondition] = useState(false);
     const [userEmail, setUserEmail] = useState('')
-    const [token] = useToken(userEmail);
+    // const [token] = useToken(userEmail);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const imageKey = process.env.REACT_APP_image_key;
 

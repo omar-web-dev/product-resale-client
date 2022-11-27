@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import BuyersCard from './BuyersCard';
+
 
 const Buyers = () => {
     const [buyers, setBuyers] = useState([])

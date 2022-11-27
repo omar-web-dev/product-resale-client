@@ -1,19 +1,16 @@
-
-import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layout/DashboardLayout";
-import Main from "../Layout/Main";
-import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
-import AddProduct from "../Pages/Dashboard/Product/AddProduct";
-import MyProduct from "../Pages/Dashboard/Product/MyProduct";
-import SellerRoutes from "./SellerRoute/SellerRoutes";
+import AddProduct from "../Pages/Dashboard/Seller/Product/AddProduct";
+import MyProduct from "../Pages/Dashboard/Seller/Product/MyProduct";
 import Buyers from "../Pages/Dashboard/Admin/Buyers/Buyers";
 import AdminRoute from "./Admin/AdminRoute";
-import Sellers from "../Pages/Dashboard/Admin/Sellers";
-import BuyerRoute from "./Buyer/BuyerRoute";
-import Orders from "../Pages/Dashboard/Admin/Buyers/Orders";
 import ProductCategory from "../Pages/Home/Category/ProductCategory";
+import MyOrders from "../Pages/Dashboard/Buyer/MyOrders";
+import { createBrowserRouter } from "react-router-dom";
+import Main from "../Layout/Main";
+import Home from "../Pages/Home/Home";
+import Sellers from "../Pages/Dashboard/Admin/Seller/Sellers";
 
 const router = createBrowserRouter([
   {
@@ -57,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/my-orders',
-        element: <Orders />
+        element: <MyOrders />
       },
       {
         path: '/dashboard/buyers',

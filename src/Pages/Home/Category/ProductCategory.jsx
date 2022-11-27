@@ -4,7 +4,7 @@ import ProductCategoryCard from './ProductCategoryCard';
 
 const ProductCategory = () => {
     const products = useLoaderData()
-    console.log(products)
+    // console.log(products)
     return (
         <div>
                 {products.map(pt => <ProductCategoryCard key={pt._id} product={pt}/>)}

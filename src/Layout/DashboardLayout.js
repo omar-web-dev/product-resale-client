@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import useAdmin from '../Hook/useAdmin';
-import { AuthContext } from '../Pages/Context/AuthProvide';
+import { useContext, useEffect, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvide";
+import useAdmin from "../Hook/useAdmin";
 import DashboardNavbar from '../Pages/SharedPages/DashboardNavbar';
-import Footer from '../Pages/SharedPages/Footer';
+import Footer from "../Pages/SharedPages/Footer";
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
@@ -12,7 +12,6 @@ const DashboardLayout = () => {
     console.log(isAdmin, isSeller, isBuyer)
     useEffect(()=>{
         fetch(`http://localhost:5000/users-email?email=${user?.email}`)
-        // fetch(`http://localhost:5000/users/admin/:email=${user?.email}`)
         .then(res => res.json())
         .then(data => setRealUser(data[0]))
     },[user?.email])
@@ -43,7 +42,7 @@ const DashboardLayout = () => {
         }
         {isBuyer &&
             <>
-                <li><Link to={'/dashboard/my-product'} >Buyer</Link></li>
+                <li>Buyer</li>
                 <li><Link to={'/dashboard/my-orders'} >My Orders</Link></li>
                 {/* <li><Link to={'/dashboard/add-product'} >Add Product</Link></li> */}
             </>
@@ -51,7 +50,7 @@ const DashboardLayout = () => {
             {
                 isSeller && 
             <>
-                <li><Link to={'/dashboard/my-product'} >Seller</Link></li>
+                <li>Seller</li>
                 <li><Link to={'/dashboard/my-product'} >My Product</Link></li>
                 <li><Link to={'/dashboard/add-product'} >Add Product</Link></li>
             </>
@@ -64,7 +63,6 @@ const DashboardLayout = () => {
                 </div>
             </div>
 
-            {/* {userRole.map(ur => <DashBoard userRole={ur} key={ur._id}/> )} */}
             <Footer />
         </div>
     );

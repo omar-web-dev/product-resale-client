@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../Pages/Context/AuthProvide";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Context/AuthProvide";
 
 const useAdmin = realUser => {
     const {user} = useContext(AuthContext)

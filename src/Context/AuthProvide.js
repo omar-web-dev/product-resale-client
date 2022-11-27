@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const updateUserInfo = (userInfo) => {
+        console.log(userInfo)
         setLoading(true)
         return updateProfile(auth.currentUser, userInfo);
     }
@@ -38,6 +39,7 @@ const AuthProvider = ({ children }) => {
     }, [user])
 
     const googleLongIn = provider => {
+        
         setLoading(true)
         return signInWithPopup(auth, provider)
     }

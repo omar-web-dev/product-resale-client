@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import { AuthContext } from '../../Context/AuthProvide';
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../../../Context/AuthProvide";
 
 const AddProduct = () => {
 

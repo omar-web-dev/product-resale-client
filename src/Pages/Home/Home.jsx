@@ -1,6 +1,7 @@
 import React from 'react';
-import Product from './Product';
-import Slider from './Slider';
+import Product from './Services/Product';
+// import Product from './Services/Product';
+import Slider from './Slider/Slider';
 
 const Home = () => {
     return (

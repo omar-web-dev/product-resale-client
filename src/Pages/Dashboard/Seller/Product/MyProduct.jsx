@@ -1,11 +1,11 @@
-import React, {useContext} from 'react'
-import { Link } from 'react-router-dom';
-import MyProductCard from './MyProductCard';
+import { useContext } from "react";
 import { useQuery } from '@tanstack/react-query';
-import { AuthContext } from '../../Context/AuthProvide';
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../../Context/AuthProvide";
 
 const MyProduct = () => {
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
+
 
     const { data: products, isLoading, refetch } = useQuery({
         queryKey: ['products'],
@@ -55,7 +55,7 @@ const MyProduct = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((pt, i) => <MyProductCard  key={pt._id} id={pt._id} sl={i} product={pt} />)}
+                            {/* {products.map((pt, i) => <MyProductCard  key={pt._id} id={pt._id} sl={i} product={pt} />)} */}
                         </tbody>
                     </table>
                 </div>
