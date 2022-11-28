@@ -13,6 +13,7 @@ import Home from "../Pages/Home/Home";
 import Sellers from "../Pages/Dashboard/Admin/Seller/Sellers";
 import MyOrders from "../Pages/Dashboard/Buyer/MyOrders";
 import Blog from "../Pages/Blog/Blog";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
         element: <ProductCategory />,
       },
 
-    ]
+    ],
+    errorElement : <ErrorPage/>
   }, {
     path: "/dashboard",
     element: <DashboardLayout />,
@@ -71,7 +73,8 @@ const router = createBrowserRouter([
         element: <AdminRoute><Sellers /></AdminRoute>
       },
 
-    ]
+    ],
+    errorElement : <ErrorPage/>
   }
 ]);
 export default router 
