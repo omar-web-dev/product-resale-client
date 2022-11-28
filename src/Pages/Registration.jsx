@@ -6,7 +6,7 @@ import { AuthContext } from '../Context/AuthProvide';
 
 
 const Registration = () => {
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const googleProvider = new GoogleAuthProvider();
     const { createUser, googleLongIn, updateUserInfo } = useContext(AuthContext);
     const [error, setError] = useState('');
@@ -37,8 +37,8 @@ const Registration = () => {
                             const user = result.user;
                             const userInfo = {
                                 displayName: data.name,
-                                photoURL : imgData.data.url
-                                
+                                photoURL: imgData.data.url
+
                             }
                             updateUserInfo(userInfo)
                                 .then(() => {
@@ -47,7 +47,7 @@ const Registration = () => {
                                         data.email,
                                         data.userStatus,
                                         data.password,
-                                        {photoURL : imgData?.data?.url}
+                                        { photoURL: imgData?.data?.url }
                                     );
                                 })
                                 .catch(err => console.log(err));

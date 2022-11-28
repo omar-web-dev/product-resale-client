@@ -1,29 +1,13 @@
-import React from 'react';
+import React , {useState } from 'react';
 
-const ProductCategoryCard = ({ product }) => {
+const ProductCategoryCard = ({ product, setBooking, setToggle }) => {
+    
+
     const { productTitle, city, state, zip, oldPrice, price, usedYear } = product
 
-    const booking = 
-    [
-        {
-"user" : {"name" : "Buyer", "email" : "buyer@omar.com", "location" : "city, state"},
-"seller" : {"name" : "Seller", "email" : "seller@omar.com", "location" : "city, state", "verified" : true},
-"product" : {"productId" : "_id", "price" : "33"}
-        }
-    ]
-    return (
-        <>{/* The button to open modal */}
-            
 
-            {/* Put this part before </body> tag */}
-            <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box relative">
-                    <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">Congratulations random Internet user!</h3>
-                    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                </div>
-            </div>
+    return (
+        <>
             <div className="max-w-[1000px] mx-auto card w-full p-10 bg-base-100 border rounded-none">
                 <div className='mb-5'>
                     <h2 className="card-title">{productTitle}</h2>
@@ -49,7 +33,7 @@ const ProductCategoryCard = ({ product }) => {
                                 <p >Resale price {oldPrice}</p>
                                 <p>Original price{price}</p>
                                 <p>Used {usedYear} Month</p>
-                                <label htmlFor="my-modal-3" className="btn btn-primary">Book Know</label>
+                                <label onClick={() => setBooking(product, setToggle(false))} htmlFor="my-modal-3" className="btn btn-primary">Book Know</label>
                                 {/* <button className="btn btn-primary">Book Know</button> */}
                                 <button className="btn btn-primary">Details</button>
                             </div>

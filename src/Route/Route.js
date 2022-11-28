@@ -6,11 +6,13 @@ import MyProduct from "../Pages/Dashboard/Seller/Product/MyProduct";
 import Buyers from "../Pages/Dashboard/Admin/Buyers/Buyers";
 import AdminRoute from "./Admin/AdminRoute";
 import ProductCategory from "../Pages/Home/Category/ProductCategory";
-import MyOrders from "../Pages/Dashboard/Buyer/MyOrders";
+// import MyOrders from "../Pages/Dashboard/Buyer/MyOrders";
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home";
 import Sellers from "../Pages/Dashboard/Admin/Seller/Sellers";
+import MyOrders from "../Pages/Dashboard/Buyer/MyOrders";
+import Blog from "../Pages/Blog/Blog";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "registration",
         element: <Registration />,
+      },
+      {
+        path: "blog",
+        element: <Blog />,
       },
       {
         path: "category/:category",

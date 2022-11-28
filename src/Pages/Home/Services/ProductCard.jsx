@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ProductCard = ({ product }) => {
-    // console.log(product)
-    const { productTitle, city, state, zip, oldPrice, price, usedYear } = product
+const ProductCard = ({ product , id}) => {
+    
+    const { productTitle, city, state, zip, oldPrice, price, usedYear , phone} = product
     return (
         <>
             <div className="md:hidden card bg-base-100 shadow-xl">
@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
                         <div className="card-actions">
                             <div className='grid gap-3'>
                                 <p className='border p-3 rounded-md'>For sale by <strong> MD Yousuf Hawladar</strong></p>
-                                <p className='border p-3 rounded-md'>Phone {"018xxxxxx"}</p>
+                                <p className='border p-3 rounded-md'>Phone {phone}</p>
                                 <div className='border p-3 rounded-md'>
                                     <p className='semibold'><strong>For Safety </strong></p>
                                     <ol className='list-disc pl-5'>
@@ -49,6 +49,7 @@ const ProductCard = ({ product }) => {
                                 <p >Resale price {oldPrice}</p>
                                 <p>Original price{price}</p>
                                 <p>Used {usedYear} Month</p>
+                                <label htmlFor="my-modal-3" className="btn btn-primary">Book Know</label>
                                 <button className="btn btn-primary">Book Know</button>
                             </div>
                         </div>

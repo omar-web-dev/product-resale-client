@@ -30,11 +30,12 @@ const AddProduct = () => {
             data.city,
             data.state,
             data.zip,
+            data.phone
         );
     }
 
-    const saveUser = (productTitle, price, oldPrice, usedYear, condition,category, city, state, zip, ct) => {
-        const user = { productTitle, price, oldPrice, usedYear, condition, city, state, zip, email: userEmail , category};
+    const saveUser = (productTitle, price, oldPrice, usedYear, condition,category, city, state, zip, phone) => {
+        const user = { productTitle, price, oldPrice, usedYear, condition, city, state, zip, email: userEmail , category, phone};
         console.log(user)
         fetch('http://localhost:5000/add-product', {
             method: 'POST',
@@ -116,6 +117,14 @@ const AddProduct = () => {
                                     required: "image is required",
                                 })}
                                 className="w-full rounded-md focus:ring p-2 focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 text-gray-900" />
+                        </div>
+                        <div className="col-span-full  sm:col-span-2">
+                            <label htmlFor="phone" className="text-sm">Phone</label>
+                            <input id="city" type="text"
+                                {...register("phone", {
+                                    required: "you phone is required",
+                                })}
+                                placeholder="Chittagong" className="w-full rounded-md focus:ring p-2 focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 text-gray-900" />
                         </div>
                         <div className="col-span-full  sm:col-span-2">
                             <label htmlFor="city" className="text-sm">City</label>

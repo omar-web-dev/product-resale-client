@@ -4,8 +4,8 @@ import Categorize from '../Category/Categorize';
 import ProductCard from './ProductCard';
 
 const Product = () => {
-    const [categorize, setCategorize] = useState([])
     const [products, setProducts] = useState([])
+    const [categorize, setCategorize] = useState([])
     useEffect(() => {
         fetch(`http://localhost:5000/categorize`)
             .then(res => res.json())
@@ -30,7 +30,7 @@ const Product = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-7">
-                {products.map(pt=> <ProductCard key={pt?._id} product={pt}/>)}
+                {products.map(pt=> <ProductCard key={pt?._id} id={pt?._id} product={pt}/>)}
             </div>
 
         </section>

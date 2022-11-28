@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { FaGofore, FaInstagram, FaInstagramSquare, FaTwitter } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import FooterCategory from './FooterCategory';
 
 const Footer = () => {
+    const [categorize, setCategorize] = useState([])
+    useEffect(() => {
+        fetch(`http://localhost:5000/categorize`)
+            .then(res => res.json())
+            .then(data => setCategorize(data))
+    }, [])
     return (
         <div className=' dark:bg-gray-800 dark:text-gray-100 mt-32'>
             <footer className="px-4 divide-y max-w-[1440px] mx-auto ">
@@ -22,21 +29,10 @@ const Footer = () => {
                     </div>
                     <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-3">
                         <div className="space-y-3">
-                            <h3 className="tracking-wide uppercase dark:text-gray-50">Product</h3>
-                            <ul className="space-y-1">
-                                <li>
-                                    <a rel="noopener noreferrer" href="#">Features</a>
-                                </li>
-                                <li>
-                                    <a rel="noopener noreferrer" href="#">Integrations</a>
-                                </li>
-                                <li>
-                                    <a rel="noopener noreferrer" href="#">Pricing</a>
-                                </li>
-                                <li>
-                                    <a rel="noopener noreferrer" href="#">FAQ</a>
-                                </li>
-                            </ul>
+                            <h3 className="tracking-wide uppercase dark:text-gray-50">Category</h3>
+                            <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 mt-5 justify-center text-xl md:text-2xl font-semibold text-center'>
+                                {categorize.map(ct => <FooterCategory key={ct?._id} id={ct?._id} category={ct} />)}
+                            </div>
                         </div>
                         <div className="space-y-3">
                             <h3 className="tracking-wide uppercase dark:text-gray-50">Company</h3>
