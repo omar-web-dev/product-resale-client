@@ -1,22 +1,31 @@
 import { useContext, useEffect, useState } from "react";
+import { Navigate  } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvide";
 import useAdmin from "../../Hook/useAdmin";
-// import { AuthContext } from "../../Pages/Context/AuthProvide";
+import Spanner from "../../Pages/Spanner/Spainer";
 
 const AdminRoute = ({ children }) => {
-    const { user } = useContext(AuthContext);
     const [realUser, setRealUser] = useState()
-    const [isAdmin] = useAdmin(realUser);
+    const { user, loading } = useContext(AuthContext);
+
+    const [isAdmin, isSeller, isBuyer] = useAdmin(realUser);
+    
+    
     useEffect(() => {
-        // fetch(`http://localhost:5000/users/admin/:email=${user?.email}`)
         fetch(`http://localhost:5000/users-email?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setRealUser(data[0]))
     }, [user?.email])
 
-    if (isAdmin) {
-        return children
+    console.log(isAdmin, isSeller, isBuyer)
+    if (loading) {
+        return <Spanner></Spanner>
     }
+
+    if (user) {
+        return children;
+    }
+    return <Navigate to="/"></Navigate>;
 };
 
 

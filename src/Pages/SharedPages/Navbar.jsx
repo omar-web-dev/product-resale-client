@@ -16,7 +16,7 @@ const Navbar = () => {
     }, [user?.email])
 
     console.log(isAdmin, isSeller, isBuyer)
-
+    // if(isAdmin)
 
 
     const handleSingOut = () => {
@@ -34,7 +34,9 @@ const Navbar = () => {
             <li><Link to='/'>service</Link></li>
             <li><Link to='/'>Contact Us</Link></li>
             <li><Link to='/blog'>Blog</Link></li>
-            {user?.uid ?
+            {!user?.uid ?
+                <li><Link to='registration'>Registration</Link></li>
+                :
                 <>
                     {isAdmin ?
                         <li><Link to='../dashboard/buyers'>Dashboard</Link></li>
@@ -44,8 +46,6 @@ const Navbar = () => {
                             <li><Link to='../dashboard/my-product'>Dashboard</Link></li>
                     }
                 </>
-                :
-                <li><Link to='registration'>Registration</Link></li>
             }
         </>
     return (
@@ -66,6 +66,7 @@ const Navbar = () => {
                             <li>
                                 {user?.uid ?
                                     <>
+
                                         <button onClick={handleSingOut} className=''  >Sign out</button>
                                     </>
                                     :
@@ -121,6 +122,13 @@ const Navbar = () => {
                                     }
                                     <li><Link>View Profile</Link></li>
                                     <li>
+                                        <button disabled> 
+                                            <span>{
+                                                isAdmin ? "Admin" :
+                                                    isBuyer ? "User" :
+                                                        isSeller && "Seller"
+                                            }</span> 🔥
+                                        </button>
                                         <button onClick={handleSingOut} className=''  >Sign out</button>
                                     </li>
                                 </ul>

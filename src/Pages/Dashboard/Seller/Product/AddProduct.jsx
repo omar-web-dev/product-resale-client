@@ -67,6 +67,8 @@ const AddProduct = () => {
                 console.log(errorMessage)
                 setError(errorMessage)
             });
+
+            
     }
 
     return (

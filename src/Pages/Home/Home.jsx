@@ -6,11 +6,13 @@ import Service from './Services/Service';
 import Slider from './Slider/Slider';
 
 const Home = () => {
+    
     return (
         <>
-         <Slider/>   
-         <Get/>
-         <Service/>
+            <Slider />
+
+            <Get />
+            <Service />
         </>
     );
 };

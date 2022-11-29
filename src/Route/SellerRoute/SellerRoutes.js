@@ -1,21 +1,23 @@
-import { useState, useContext, useEffect } from 'react';
-import useAdmin from '../../Hook/useAdmin';
-import { AuthContext } from '../../Pages/Context/AuthProvide';
+import { useContext} from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvide";
+import useSeller from "../../Hook/useSeller";
+// import useAdmin from "../../Hook/useAdmin";
+import Spanner from "../../Pages/Spanner/Spainer";
 
 const SellerRoutes = ({ children }) => {
-    const { user } = useContext(AuthContext);
-    const [realUser, setRealUser] = useState()
-    const [isSeller] = useAdmin(realUser);
+    const { user, loading } = useContext(AuthContext);
+    const [isSeller, sellerLoading] = useSeller(user?.email);
 
-    useEffect(() => {
-        fetch(`http://localhost:5000/users/seller/email?email=${user?.email}`)
-        // fetch(`http://localhost:5000/users-email?email=${user?.email}`)
-            .then(res => res.json())
-            .then(data => setRealUser(data[0]))
-    }, [user?.email])
+    if (loading || sellerLoading)  {
+        return <Spanner></Spanner>
+    }
 
     if (isSeller) {
-        return children
+        return children;
+    }
+    else{
+        return <Navigate to="/"></Navigate>;
     }
 };
 

@@ -1,7 +1,12 @@
 import React from 'react';
+import Datetime from 'react-datetime';
+
 
 const ProductCard = ({ product , id}) => {
-    
+    const dd = () =>{
+        return ;
+        
+    }
     const { productTitle, city, state, zip, oldPrice, price, usedYear , phone} = product
     return (
         <>
@@ -20,7 +25,7 @@ const ProductCard = ({ product , id}) => {
                 </div>
                 <p >Resale price {oldPrice}</p>
                 <p>Original price{price}</p>
-                <p>Used {usedYear} Month</p>
+                <p>Used {usedYear} Year</p>
             </div>
 
 
