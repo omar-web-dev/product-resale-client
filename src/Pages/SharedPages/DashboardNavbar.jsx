@@ -1,11 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvide';
+import useAdmin from '../../Hook/useAdmin';
 
 const DashboardNavbar = () => {
+    
     const { user, userSignOut } = useContext(AuthContext)
     const [toggle, setToggle] = useState(false)
-
+    const [realUser, setRealUser] = useState()
+    const [isAdmin, isSeller, isBuyer] = useAdmin(realUser);
+    useEffect(()=>{
+        fetch(`http://localhost:5000/users-email?email=${user?.email}`)
+        .then(res => res.json())
+        .then(data => setRealUser(data[0]))
+    },[user?.email])
+    
+    console.log(isAdmin, isSeller, isBuyer)
 
     const handleSingOut = () => {
         userSignOut()
@@ -16,10 +26,16 @@ const DashboardNavbar = () => {
     const profileToggle = () => {
         setToggle(s => !s);
     }
-    const navItems =
+    const navItems = 
         <>
             <li><Link to='/'>Home</Link></li>
+            {isAdmin?
             <li><Link to='../dashboard'>Dashboard</Link></li>
+            :(isSeller) ?
+            <li><Link to='../dashboard'>Dashboard</Link></li>
+            :
+            <li><Link to='../dashboard'>Dashboard</Link></li>
+            }
         </>
     return (
         <div className="mx-auto max-w-[1440px] py-5 px-[3%]">

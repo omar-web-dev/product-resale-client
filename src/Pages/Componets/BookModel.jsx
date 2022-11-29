@@ -26,7 +26,6 @@ const BookModel = ({ booking, toggle, setToggle }) => {
             data.productPrice,
             sellerLocation
         );
-        console.log(bookingItems)
 
     }
 

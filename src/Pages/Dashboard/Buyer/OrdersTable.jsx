@@ -1,18 +1,20 @@
 import React from 'react';
 
-const OrdersTable = (order, id) => {
-    console.log(order)
+const OrdersTable = ({order,sl,  id}) => {
+    const pay = () => {
+        <div className='absolute'>
+            {alert('pay coming son....')}
+        </div>
+    }
+
+    const {productPrice, productName, } = order
     return (
         <tr>
-            {/* <th>{sl + 1}</th> */}
-            {/* <td>{productTitle.length > 15 ? productTitle.slice(0, 15) + '...' : productTitle}</td>
-            <td>{price}</td>
-            <td>Category</td>
-            <td>Add Know</td>
-            <td>
-                <FaRegEdit className='mx-auto cursor-pointer text-blue-200 w-8 h-8 bg-blue-500 p-2 rounded-full' />
-            </td> */}
-            
+            <th>{sl + 1}</th>
+            <td>{"image loading..."}</td>
+            <td>{productName.length < 1? 'NO TITLE ' :  productName.length > 15 ? productName.slice(0, 15) + '...' : productName}</td>
+            <td>{productPrice.length < 1? 'NO PRICE ' : productPrice}</td>
+            <td><button onClick={pay} className='btn btn-primary btn-sm '>pay</button></td>
         </tr>
     );
 };

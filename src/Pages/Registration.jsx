@@ -45,6 +45,8 @@ const Registration = () => {
                                     saveUser(
                                         data.name,
                                         data.email,
+                                        data.phone,
+                                        data.location,
                                         data.userStatus,
                                         data.password,
                                         { photoURL: imgData?.data?.url }
@@ -76,8 +78,8 @@ const Registration = () => {
                 setError(errorMessage)
             });
     }
-    const saveUser = (name, email, userStatus, password) => {
-        const user = { name, email, userStatus, password };
+    const saveUser = (name, email, phone, location, userStatus, password ) => {
+        const user = { name, email, phone, location, userStatus, password };
 
         fetch('http://localhost:5000/users', {
             method: 'POST',
@@ -93,7 +95,7 @@ const Registration = () => {
     }
 
     return (
-        <div className='h-[800px] flex justify-center bg-[#093444] items-center'>
+        <div className='py-20 flex justify-center bg-[#093444] '>
             <div className='w-96 p-7'>
                 <h2 className='text-5xl text-center font-semibold font-[Lexend Deca] text-white'>Registration</h2>
                 <form onSubmit={handleSubmit(handleSignUp)}>
@@ -103,6 +105,24 @@ const Registration = () => {
                             required: "Name is required",
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="text-white label-text">Phone</span></label>
+                        <input type="text" {...register("phone", {
+                        })} className="input input-bordered w-full max-w-xs" />
+                        {errors.phone && <p className='text-red-500'>{errors.phone.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="text-white label-text">Location</span></label>
+                        <input type="text" {...register("location", {
+                        })} className="input input-bordered w-full max-w-xs" />
+                        {errors.location && <p className='text-red-500'>{errors.location.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="text-white label-text">Email</span></label>
+                        <input type="email" {...register("email", {
+                        })} className="input input-bordered w-full max-w-xs" />
+                        {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <select selected name="userStatus" {...register("userStatus")} className='input input-bordered w-full max-w-xs mt-3'>
@@ -116,13 +136,7 @@ const Registration = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
                     </div>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label"> <span className="text-white label-text">Email</span></label>
-                        <input type="email" {...register("email", {
-                            required: true
-                        })} className="input input-bordered w-full max-w-xs" />
-                        {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
-                    </div>
+                    
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="text-white label-text">Password</span></label>
                         <input type="password" {...register("password", {

@@ -1,10 +1,22 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvide';
+import useAdmin from '../../Hook/useAdmin';
 
 const Navbar = () => {
+
     const { user, userSignOut } = useContext(AuthContext)
     const [toggle, setToggle] = useState(false)
+    const [realUser, setRealUser] = useState()
+    const [isAdmin, isSeller, isBuyer] = useAdmin(realUser);
+    useEffect(() => {
+        fetch(`http://localhost:5000/users-email?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => setRealUser(data[0]))
+    }, [user?.email])
+
+    console.log(isAdmin, isSeller, isBuyer)
+
 
 
     const handleSingOut = () => {
@@ -22,8 +34,19 @@ const Navbar = () => {
             <li><Link to='/'>service</Link></li>
             <li><Link to='/'>Contact Us</Link></li>
             <li><Link to='/blog'>Blog</Link></li>
-            <li><Link to='registration'>Registration</Link></li>
-            <li><Link to='dashboard/my-product'>Dashboard</Link></li>
+            {user?.uid ?
+                <>
+                    {isAdmin ?
+                        <li><Link to='../dashboard/buyers'>Dashboard</Link></li>
+                        : (isBuyer) ?
+                            <li><Link to='../dashboard/my-orders'>Dashboard</Link></li>
+                            : isSeller &&
+                            <li><Link to='../dashboard/my-product'>Dashboard</Link></li>
+                    }
+                </>
+                :
+                <li><Link to='registration'>Registration</Link></li>
+            }
         </>
     return (
         <div className="mx-auto max-w-[1440px] py-5 px-[3%] ">

@@ -14,6 +14,7 @@ import Sellers from "../Pages/Dashboard/Admin/Seller/Sellers";
 import MyOrders from "../Pages/Dashboard/Buyer/MyOrders";
 import Blog from "../Pages/Blog/Blog";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import PrivateRoute from "./PrivetRoute/PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: "registration",
-        element: <Registration />,
+        element: <PrivateRoute><Registration /></PrivateRoute>,
       },
       {
         path: "blog",
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
+      {
+        path: '/dashboard',
+        // element: <Dashboard />
+      },
       {
         path: '/dashboard/my-product',
         element: <MyProduct />

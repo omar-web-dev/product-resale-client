@@ -63,7 +63,6 @@ const AuthProvider = ({ children }) => {
         googleLongIn,
         userRole,
         loading
-
     }
     return (
         <AuthContext.Provider value={authInfo}>

@@ -1,17 +1,43 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import Spanner from '../../../Spanner/Spainer';
 import SellerCard from './SellerCard';
 
 const Sellers = () => {
-    const [sellers, setSeller] = useState([])
-    useEffect(() => {
-        fetch(`http://localhost:5000/rule?userStatus=seller`)
-            .then(res => res.json())
-            .then(data => setSeller(data))
-    }, [])
+    // const [seller, setSeller] = useState([])
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/rule?userStatus=seller`)
+    //         .then(res => res.json())
+    //         .then(data => setSeller(data))
+    // }, [])
+
+    const notify = () => toast("Deleted!");
+    const { data: seller, isLoading, refetch } = useQuery({
+        queryKey: ['seller'],
+        queryFn: async () => {
+            try {
+                const res = await fetch('http://localhost:5000/rule?userStatus=seller', {
+
+                });
+                const data = await res.json();
+                return data;
+            }
+            catch (error) {
+
+            }
+        }
+    });
+
+    
+    if(isLoading){
+        return <Spanner/>
+    }
 
     return (
 
             <div>
+                <ToastContainer />
                 <div className="modal z-50" id="deleteModel">
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
@@ -21,7 +47,7 @@ const Sellers = () => {
                         </div>
                     </div>
                 </div>
-                {sellers.length === 0 ?
+                {seller.length === 0 ?
                     <>
                         <h4 className="text-4xl">No product added</h4>
                     </>
@@ -39,7 +65,14 @@ const Sellers = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {sellers.map((seller, i) => <SellerCard key={i} id={seller._id} sl={i} seller={seller} />)}
+                                {seller.map((seller, i) => 
+                                <SellerCard key={i} 
+                                id={seller._id} 
+                                sl={i} 
+                                seller={seller} 
+                                refetch={refetch}
+                                notify={notify}
+                                />)}
                             </tbody>
                         </table>
                     </div>

@@ -1,10 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import {useLocation, useNavigate  } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../../../Context/AuthProvide";
 
-const AddProduct = () => {
 
+const AddProduct = () => {
+    const notify = () => toast("Wow Product added!");
     const [categorize, setCategorize] = useState([])
+    const navigate = useNavigate();
+    const {loading} = useContext(AuthContext)
+
 
     useEffect(() => {
         fetch(`http://localhost:5000/categorize`)
@@ -47,7 +53,13 @@ const AddProduct = () => {
             .then(res => res.json())
             .then(data => {
                 if (data?.acknowledged) {
+                    notify()
+                    navigate('../my-product');
+                    // {loading}
                     // alert('product added')
+                }
+                if(!data?.acknowledged){
+                    navigate('../../')
                 }
                 console.log(data)
             }).catch((error) => {
@@ -59,6 +71,7 @@ const AddProduct = () => {
 
     return (
         <section className="p-6 bg-gray-100 text-gray-800">
+             <ToastContainer />
             <form onSubmit={handleSubmit(handleAddProduct)} className="container w-max-68 flex  mx-auto space-y-12 ">
                 <fieldset className=" gap-6 p-6 rounded-md shadow-sm ">
                     <div className="justify-center grid grid-cols-6 gap-4 col-span-full lg:col-span-3">

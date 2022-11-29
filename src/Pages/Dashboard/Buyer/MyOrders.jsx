@@ -8,7 +8,7 @@ const MyOrders = () => {
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?email=${user?.email}`)
+        fetch(`http://localhost:5000/booking?userEmail=${user?.email}`)
             .then(res => res.json())
             .then(data => setOrders(data))
     }, [user])
@@ -34,17 +34,22 @@ const MyOrders = () => {
                 :
                 <div className="overflow-x-auto">
                     <table className="table w-full">
-                        {/* <thead>
+                        <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>SL</th>
                                 <th>Image</th>
+                                <th>Product Title</th>
                                 <th>price</th>
-                                <th>location</th>
-                                <th className='text-center'></th>
+                                <th>PAY</th>
                             </tr>
-                        </thead> */}
+                        </thead>
                         <tbody>
-                            {orders.map((order) => <OrdersTable  key={order._id} id={order._id} order={order} />)}
+                            {orders.map((order, i) => <OrdersTable
+                              key={order._id} 
+                              id={order._id} 
+                              order={order} 
+                              sl={i}
+                              />)}
                         </tbody>
                     </table>
                 </div>

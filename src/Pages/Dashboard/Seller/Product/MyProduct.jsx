@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../Context/AuthProvide";
 import MyProductCard from "./MyProductCard";
+import Spanner from "../../../Spanner/Spainer";
 
 const MyProduct = () => {
     const { user } = useContext(AuthContext)
@@ -23,7 +24,7 @@ const MyProduct = () => {
 
 
     if (isLoading) {
-        return <p>Loading...</p>
+        return <Spanner/>
     }
     return (
         <div>

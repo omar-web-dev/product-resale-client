@@ -30,7 +30,7 @@ const Footer = () => {
                     <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-3">
                         <div className="space-y-3">
                             <h3 className="tracking-wide uppercase dark:text-gray-50">Category</h3>
-                            <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 mt-5 justify-center text-xl md:text-2xl font-semibold text-center'>
+                            <div className='grid '>
                                 {categorize.map(ct => <FooterCategory key={ct?._id} id={ct?._id} category={ct} />)}
                             </div>
                         </div>

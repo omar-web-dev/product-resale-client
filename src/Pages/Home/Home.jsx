@@ -1,6 +1,7 @@
 import React from 'react';
+import PrivateRoute from '../../Route/PrivetRoute/PrivetRoute';
 import Get from './Get/Get';
-import Product from './Services/Product';
+import Service from './Services/Service';
 // import Product from './Services/Product';
 import Slider from './Slider/Slider';
 
@@ -9,7 +10,7 @@ const Home = () => {
         <>
          <Slider/>   
          <Get/>
-         <Product/>
+         <Service/>
         </>
     );
 };

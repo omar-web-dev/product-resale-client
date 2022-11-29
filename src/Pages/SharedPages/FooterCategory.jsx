@@ -5,7 +5,7 @@ const FooterCategory = ({category}) => {
     return (
         <div>
             <Link to={`/category/${category?.category}`}>
-                <p className='text-xl  cursor-pointer hover:text-orange-500 md:px-3 text-center bg-slate-200 rounded-md py-2'>{category?.category}</p>
+                <p className='cursor-pointer hover:text-orange-500  py-2'>{category?.category}</p>
             </Link>
         </div>
     );

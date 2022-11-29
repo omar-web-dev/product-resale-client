@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import PrivateRoute from '../../../Route/PrivetRoute/PrivetRoute';
+import BookModel from '../../Componets/BookModel';
 import Categorize from '../Category/Categorize';
 // import Categorize from './Categorize';
 import ProductCard from './ProductCard';
@@ -24,13 +26,14 @@ const Product = () => {
                 <div>
                     <h2 className="text-3xl mt-10 text-orange-500 md:text-4xl">Collection</h2>
                 </div>
-                <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 mt-5 justify-center text-xl md:text-2xl font-semibold text-center'>
-                    {categorize.map(ct => <Categorize key={ct?._id} id={ct?._id} category={ct} />)}
-                    
-                </div>
+                <PrivateRoute>
+                    <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 mt-5 justify-center text-xl md:text-2xl font-semibold text-center'>
+                        {categorize.map(ct => <Categorize key={ct?._id} id={ct?._id} category={ct} />)}
+                    </div>
+                </PrivateRoute>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-7">
-                {products.map(pt=> <ProductCard key={pt?._id} id={pt?._id} product={pt}/>)}
+                {products.map(pt => <ProductCard key={pt?._id} id={pt?._id} product={pt} />)}
             </div>
 
         </section>
