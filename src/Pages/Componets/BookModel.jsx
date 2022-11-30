@@ -90,7 +90,7 @@ const BookModel = ({ booking, toggle, setToggle }) => {
                         </div>
 
                         <div className="form-control w-full">
-                            <input defaultValue={"$" + price} type="text"
+                            <input defaultValue={price} type="text"
                                 {...register("productPrice")}
                                 className="input input-bordered w-full focus:outline-none" />
                         </div>
