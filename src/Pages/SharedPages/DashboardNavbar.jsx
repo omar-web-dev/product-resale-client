@@ -1,25 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvide';
-import useAdmin from '../../Hook/useAdmin';
 
 const DashboardNavbar = () => {
     
     const { user, userSignOut } = useContext(AuthContext)
     const [toggle, setToggle] = useState(false)
-    const [realUser, setRealUser] = useState()
-    const [isAdmin, isSeller, isBuyer] = useAdmin(realUser);
     useEffect(()=>{
-        fetch(`http://localhost:5000/users-email?email=${user?.email}`)
+        fetch(`https://apens-home.vercel.app/users-email?email=${user?.email}`)
         .then(res => res.json())
-        .then(data => setRealUser(data[0]))
+        .then(data => {})
     },[user?.email])
     
 
     const handleSingOut = () => {
         userSignOut()
             .then(() => { })
-            .catch(err => console.log(err));
+            .catch(err => {});
     }
 
     const profileToggle = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HiOutlineTrash } from 'react-icons/hi';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const BuyersCard = ({sl, buyer, id, refetch ,notify}) => {
     const { name, userStatus, email } = buyer
     const ids = () => {
-        fetch(`http://localhost:5000/delete-user/${id}`, {
+        fetch(`https://apens-home.vercel.app/delete-user/${id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())

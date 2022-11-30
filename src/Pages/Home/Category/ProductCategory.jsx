@@ -8,7 +8,6 @@ const ProductCategory = () => {
     const [toggle, setToggle] = useState(s === !s)
     const [booking, setBooking] = useState({})
     const products = useLoaderData()
-    // console.log(products)
     return (
         <>
             <div>

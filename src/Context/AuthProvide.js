@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
 
     // loaded all users
     useEffect(() => {
-        fetch(`http://localhost:5000/users-role?userStatus=seller`)
+        fetch(`https://apens-home.vercel.app/users-role?userStatus=seller`)
             .then(res => res.json())
             .then(data => setUserRole({ data, user }))
         setLoading(false)

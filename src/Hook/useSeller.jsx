@@ -6,7 +6,7 @@ const useSeller = (seller) => {
     const [sellerLoading, setSellerLoading ] = useState(true)
     useEffect(() => {
             if(seller){
-                fetch(`http://localhost:5000/users/seller?email=${seller}`)
+                fetch(`https://apens-home.vercel.app/users/seller?email=${seller}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsBuyer(data.isSeller)

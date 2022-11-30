@@ -8,7 +8,7 @@ const MyOrders = () => {
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?userEmail=${user?.email}`)
+        fetch(`https://apens-home.vercel.app/booking?userEmail=${user?.email}`)
             .then(res => res.json())
             .then(data => setOrders(data))
     }, [user])
@@ -17,15 +17,6 @@ const MyOrders = () => {
 
     return (
         <div>
-            {/* <div className="modal z-50"  id="deleteModel">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
-                    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                    <div className="modal-action">
-                        <a href='#' className="btn btn-error">Delete</a>
-                    </div>
-                </div>
-            </div> */}
             {orders.length === 0 ?
                 <>
                     <h4 className="text-4xl">No product Booked</h4>

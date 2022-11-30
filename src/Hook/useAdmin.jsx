@@ -18,7 +18,7 @@ const useAdmin = realUser => {
             if(realUser?.userStatus === 'buyer'){
                 setIsBuyer(true)
             }
-            fetch(`http://localhost:5000/users/admin/email?email=${realUser?.email}`)
+            fetch(`https://apens-home.vercel.app/users/admin/email?email=${realUser?.email}`)
                 .then(res => res.json())
                 .then(data => {
                 })
@@ -26,8 +26,5 @@ const useAdmin = realUser => {
     }, [user, realUser])
     return [isAdmin, isSeller, isBuyer]
 }
-// useEffect(()=>{
-    
-// },[user?.email])
 
 export default useAdmin;

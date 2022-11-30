@@ -11,13 +11,13 @@ const Product = () => {
     const [products, setProducts] = useState([])
     const [categorize, setCategorize] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/categorize`)
+        fetch(`https://apens-home.vercel.app/categorize`)
             .then(res => res.json())
             .then(data => setCategorize(data))
     }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/product`)
+        fetch(`https://apens-home.vercel.app/product`)
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [])
@@ -45,10 +45,6 @@ const Product = () => {
                     />
 
                 )}
-
-
-                {/* <ProductCard key={pt?._id} id={pt?._id} product={pt} /> */}
-
             </div>
             <BookModel
                 booking={booking}

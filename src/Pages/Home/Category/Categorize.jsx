@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Categorize = ({ category, id }) => {
+const Categorize = ({ category }) => {
     return (
         <div>
             <Link to={`/category/${category?.category}`}>

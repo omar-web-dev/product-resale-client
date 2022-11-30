@@ -1,8 +1,7 @@
 import React from 'react';
-import Datetime from 'react-datetime';
 
 
-const ProductCard = ({ product, id }) => {
+const ProductCard = ({ product}) => {
     
     const { productTitle, city, state, zip, oldPrice, price, usedYear, phone, name, productImage, currentDate } = product
 

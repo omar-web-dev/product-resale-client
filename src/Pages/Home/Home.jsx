@@ -9,7 +9,6 @@ const Home = () => {
     return (
         <>
             <Slider />
-
             <Get />
             <Service />
         </>

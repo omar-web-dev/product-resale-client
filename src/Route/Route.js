@@ -13,7 +13,6 @@ import Sellers from "../Pages/Dashboard/Admin/Seller/Sellers";
 import MyOrders from "../Pages/Dashboard/Buyer/MyOrders";
 import Blog from "../Pages/Blog/Blog";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
-import PrivateRoute from "./PrivetRoute/PrivetRoute";
 import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import SellerRoutes from "./SellerRoute/SellerRoutes";
 
@@ -44,7 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: "category/:category",
-        loader : ({params}) => fetch(`http://localhost:5000/product/category?category=${params.category}`),
+        loader : ({params}) => fetch(`https://apens-home.vercel.app/product/category?category=${params.category}`),
         element: <ProductCategory />,
       },
 
@@ -54,10 +53,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
-      {
-        path: '/dashboard',
-        // element: <Dashboard />
-      },
+      
       {
         path: '/dashboard/my-product',
         element: <SellerRoutes><MyProduct /></SellerRoutes>

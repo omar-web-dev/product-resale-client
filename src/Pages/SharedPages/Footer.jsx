@@ -6,7 +6,7 @@ import FooterCategory from './FooterCategory';
 const Footer = () => {
     const [categorize, setCategorize] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/categorize`)
+        fetch(`https://apens-home.vercel.app/categorize`)
             .then(res => res.json())
             .then(data => setCategorize(data))
     }, [])
@@ -38,10 +38,10 @@ const Footer = () => {
                             <h3 className="tracking-wide uppercase dark:text-gray-50">Company</h3>
                             <ul className="space-y-1">
                                 <li>
-                                    <a rel="noopener noreferrer" href="#">Privacy</a>
+                                    <p>Privacy</p>
                                 </li>
                                 <li>
-                                    <a rel="noopener noreferrer" href="#">Terms of Service</a>
+                                    <p>Terms of Service</p>
                                 </li>
                             </ul>
                         </div>
@@ -49,13 +49,13 @@ const Footer = () => {
                             <h3 className="uppercase dark:text-gray-50">Developers</h3>
                             <ul className="space-y-1">
                                 <li>
-                                    <a rel="noopener noreferrer" href="#">Public API</a>
+                                    <p>Public API</p>
                                 </li>
                                 <li>
-                                    <a rel="noopener noreferrer" href="#">Documentation</a>
+                                    <p>Documentation</p>
                                 </li>
                                 <li>
-                                    <a rel="noopener noreferrer" href="#">Guides</a>
+                                    <p>Guides</p>
                                 </li>
                             </ul>
                         </div>

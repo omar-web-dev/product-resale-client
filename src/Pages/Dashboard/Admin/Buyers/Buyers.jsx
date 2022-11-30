@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import BuyersCard from './BuyersCard';
-import DeleteConfirm from '../DeleteConfirm/DeleteConfirm';
 import { useQuery } from "@tanstack/react-query";
 import Spanner from "../../../Spanner/Spainer";
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,7 +13,7 @@ const Buyers = () => {
         queryKey: ['buyer'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/rule?userStatus=buyer', {
+                const res = await fetch('https://apens-home.vercel.app/rule?userStatus=buyer', {
 
                 });
                 const data = await res.json();
@@ -26,9 +24,6 @@ const Buyers = () => {
             }
         }
     });
-    // console.log(buyer)
-    
-    const [deleteID, setDeleteID] = useState()
     
 
     let hidden = true
@@ -40,7 +35,7 @@ const Buyers = () => {
 
     const ids =(deleteId)=>{
         close(false)
-        setDeleteID(deleteId)
+        // setDeleteID(deleteId)
     } 
 
     if(isLoading){
@@ -75,7 +70,6 @@ const Buyers = () => {
                                     ids={ids}
                                     refetch={refetch}
                                     buyer={buyer}
-                                    // refetch={refetch}
                                     notify={notify}
                                 />)}
                         </tbody>

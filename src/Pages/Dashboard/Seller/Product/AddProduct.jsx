@@ -16,7 +16,7 @@ const AddProduct = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/categorize`)
+        fetch(`https://apens-home.vercel.app/categorize`)
             .then(res => res.json())
             .then(data => setCategorize(data))
     }, [])
@@ -26,7 +26,7 @@ const AddProduct = () => {
     const sellerEmail = user?.email
     const sellerName = user?.displayName
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const [error, setError] = useState()
 
     const handleAddProduct = (data) => {
@@ -53,9 +53,9 @@ const AddProduct = () => {
                         data.state,
                         data.zip,
                         data.phone,
-                        {photo :  imgData?.data?.url }
+                        { photo: imgData?.data?.url }
                     );
-                    
+
 
                 }
             })
@@ -63,9 +63,9 @@ const AddProduct = () => {
     }
 
     const saveUser = (productTitle, price, oldPrice, usedYear, condition, category, city, state, zip, phone, productImage) => {
-        const user = { productTitle, price, oldPrice, usedYear, condition, city, state, zip, email: sellerEmail, name : sellerName, category, phone, productImage, currentDate, productStatus };
-        
-        fetch('http://localhost:5000/add-product', {
+        const user = { productTitle, price, oldPrice, usedYear, condition, city, state, zip, email: sellerEmail, name: sellerName, category, phone, productImage, currentDate, productStatus };
+
+        fetch('https://apens-home.vercel.app/add-product', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -122,8 +122,12 @@ const AddProduct = () => {
 
                         <div className="col-span-full ">
                             <label htmlFor="category" className="text-sm">Category</label>
-                            <select selected id='category' {...register("category")} className='w-full rounded-md focus:ring p-2 focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 text-gray-900" '>
-                                {categorize.map(ct => <option key={ct?._id} value={ct?.category}>
+                            <select selected required id='category' {...register("category")
+                        } className='w-full rounded-md focus:ring p-2 focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 text-gray-900" '>
+                                {categorize.map(ct => <option
+                                    key={ct?._id}
+                                    value={ct?.category
+                                    }>
                                     {ct?.category}
                                 </option>)}
                             </select>

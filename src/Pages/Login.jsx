@@ -36,7 +36,7 @@ const Login = () => {
     const saveUser = (name, email, userStatus, password) => {
         const user = { name, email, userStatus, password };
 
-        fetch('http://localhost:5000/users', {
+        fetch('https://apens-home.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -89,6 +89,7 @@ const Login = () => {
                             className="input bg-[#224957]  input-bordered w-full max-w-xs" />
                         
                         {errors.password && <p className='text-red-400'>{errors.password?.message}</p>}
+                        {error && <p className='text-red-400'>{error?.message}</p>}
                     </div>
                     <div className="flex justify-between items-center my-3">
                         <div className='flex'>

@@ -1,14 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext} from 'react';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvide';
 
 const BookModel = ({ booking, toggle, setToggle }) => {
     const notify = () => toast("Booking!");
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm();
     const { user } = useContext(AuthContext)
     const { productTitle, city, state, zip, price,  phone , productImage} = booking
-    // cosnt productImage = 
     const sellerLocation = city + state + zip
 
 
@@ -38,7 +37,7 @@ const BookModel = ({ booking, toggle, setToggle }) => {
             sellerLocation
         };
 
-        fetch('http://localhost:5000/booking', {
+        fetch('https://apens-home.vercel.app/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

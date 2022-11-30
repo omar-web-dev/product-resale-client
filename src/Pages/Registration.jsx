@@ -11,9 +11,6 @@ const Registration = () => {
     const googleProvider = new GoogleAuthProvider();
     const { createUser, googleLongIn, updateUserInfo } = useContext(AuthContext);
     const [error, setError] = useState('');
-    const [checkCondition, setCheckCondition] = useState(false);
-    const [userEmail, setUserEmail] = useState('')
-    // const [token] = useToken(userEmail);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const imageKey = process.env.REACT_APP_image_key;
     const verified = false
@@ -23,9 +20,7 @@ const Registration = () => {
     }
 
     const handleSignUp = (data) => {
-        setCheckCondition(data?.checkCondition)
         setError('');
-
 
         const image = data.image[0];
         const formData = new FormData();
@@ -41,7 +36,6 @@ const Registration = () => {
                     console.log(imgData.data.url);
                     createUser(data.email, data.password)
                         .then(result => {
-                            const user = result.user;
                             const userInfo = {
                                 displayName: data.name,
                                 photoURL: imgData.data.url
@@ -73,7 +67,6 @@ const Registration = () => {
         googleLongIn(googleProvider)
             .then((result) => {
                 loginTost()
-                setUserEmail(email);
                 const user = result.user;
                 saveUser(
                     user.displayName,
@@ -92,7 +85,7 @@ const Registration = () => {
     const saveUser = (name, email, phone, location, userStatus, password) => {
         const notify = () => toast("Registration Successful!");
         const user = { name, email, phone, location, userStatus, password, verified };
-        fetch('http://localhost:5000/users', {
+        fetch('https://apens-home.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -101,7 +94,6 @@ const Registration = () => {
         })
             .then(res => res.json())
             .then(data => {
-                setUserEmail(email);
                 notify()
                 return <Navigate to="/"></Navigate >;
             })

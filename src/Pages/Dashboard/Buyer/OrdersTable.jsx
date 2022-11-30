@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrdersTable = ({ order, sl, id }) => {
+const OrdersTable = ({ order, sl}) => {
     const pay = () => {
         <div className='absolute'>
             {alert('pay coming son....')}

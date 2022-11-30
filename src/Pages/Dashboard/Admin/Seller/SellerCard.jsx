@@ -5,7 +5,7 @@ const SellerCard = ({ sl, seller, id, refetch, notify }) => {
     const {name, userStatus, email} = seller
     
     const handelDeleteSeller = (deleteId) => {
-        fetch(`http://localhost:5000/delete-user/${deleteId}`, {
+        fetch(`https://apens-home.vercel.app/delete-user/${deleteId}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
