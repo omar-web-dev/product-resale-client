@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvide';
 
 const BookModel = ({ booking, toggle, setToggle }) => {
-
+    const notify = () => toast("Booking!");
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { user } = useContext(AuthContext)
-    const { productTitle, city, state, zip, oldPrice, price, usedYear, phone } = booking
+    const { productTitle, city, state, zip, price,  phone , productImage} = booking
+    // cosnt productImage = 
     const sellerLocation = city + state + zip
 
 
@@ -18,19 +20,23 @@ const BookModel = ({ booking, toggle, setToggle }) => {
 
         myInfo(sellerLocation)
         bookingItems(
-            data.userName,
-            data.userEmail,
             data.userLocation,
-            data.userPhone,
-            data.productName,
-            data.productPrice,
-            sellerLocation
+            data.userPhone
         );
 
     }
 
-    const bookingItems = (userName, userEmail, userLocation, userPhone, productName, productPrice, sellerLocation) => {
-        const booked = { userName, userEmail, userLocation, userPhone, productName, productPrice, sellerLocation };
+    const bookingItems = (userLocation, userPhone) => {
+        const booked = {
+            userLocation,
+            userPhone,
+            userName: user?.displayName,
+            userEmail: user?.email,
+            productName: productTitle,
+            productPrice: price,
+            productImage : productImage?.photo,
+            sellerLocation
+        };
 
         fetch('http://localhost:5000/booking', {
             method: 'POST',
@@ -43,6 +49,7 @@ const BookModel = ({ booking, toggle, setToggle }) => {
             .then(data => {
                 if (data?.acknowledged) {
                     setToggle(true)
+                    notify()
                 }
             })
 
@@ -50,23 +57,25 @@ const BookModel = ({ booking, toggle, setToggle }) => {
 
     return (
         <>
+            <ToastContainer />
+
             <input type="checkbox" id="my-modal-3" className="modal-toggle" />
             <div className={`${!toggle ? 'modal' : "hidden"}`}>
                 <div className="modal-box relative">
                     <label htmlFor="my-modal-3" className={`btn btn-sm btn-circle  right-2 top-2 $`}>✕</label>
                     <form className='gap-3 grid' onSubmit={handleSubmit(handleBooking)}>
                         <div className="form-control w-full">
-                            <input readOnly={productTitle} type="text" value={productTitle} required
+                            <input defaultValue={productTitle} type="text" required
                                 {...register("productName")}
                                 className="input input-bordered w-full focus:outline-none" />
                         </div>
                         <div className="form-control w-full">
-                            <input readOnly value={user?.displayName} type="text"
+                            <input defaultValue={user?.displayName} type="text"
                                 {...register("userName")}
                                 className="input input-bordered w-full focus:outline-none" />
                         </div>
                         <div className="form-control w-full">
-                            <input readOnly value={user?.email} type="email"
+                            <input defaultValue={user?.email} type="email"
                                 {...register("userEmail")}
                                 className="input input-bordered w-full focus:outline-none" />
                         </div>
@@ -82,7 +91,7 @@ const BookModel = ({ booking, toggle, setToggle }) => {
                         </div>
 
                         <div className="form-control w-full">
-                            <input readOnly value={price} type="text"
+                            <input defaultValue={"$" + price} type="text"
                                 {...register("productPrice")}
                                 className="input input-bordered w-full focus:outline-none" />
                         </div>

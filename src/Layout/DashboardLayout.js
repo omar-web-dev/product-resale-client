@@ -9,7 +9,6 @@ const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
     const [realUser, setRealUser] = useState()
     const [isAdmin, isSeller, isBuyer] = useAdmin(realUser);
-    console.log(isAdmin, isSeller, isBuyer)
     useEffect(() => {
         fetch(`http://localhost:5000/users-email?email=${user?.email}`)
             .then(res => res.json())
@@ -25,7 +24,7 @@ const DashboardLayout = () => {
                     <div className="drawer-content flex flex-col bg-slate-200 p-10">
                         {/* <!-- Page content here --> */}
                         <Outlet />
-                        <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                        <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open Menu</label>
                     </div>
 
                     <div className="drawer-side">

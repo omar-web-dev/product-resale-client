@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const Buyers = () => {
-    // const [buyers, setBuyers] = useState([])
+   
     const notify = () => toast("Deleted!");
     const { data: buyer, isLoading, refetch } = useQuery({
         queryKey: ['buyer'],
@@ -52,7 +52,7 @@ const Buyers = () => {
             <ToastContainer />
             {buyer.length === 0 ?
                 <>
-                    <h4 className="text-4xl">No product added</h4>
+                    <h4 className="text-4xl">Have no buyer</h4>
                 </>
                 :
                 <div className="overflow-x-auto">
@@ -73,6 +73,7 @@ const Buyers = () => {
                                     id={buyer._id}
                                     sl={i}
                                     ids={ids}
+                                    refetch={refetch}
                                     buyer={buyer}
                                     // refetch={refetch}
                                     notify={notify}
@@ -81,11 +82,6 @@ const Buyers = () => {
                     </table>
                 </div>
                 } 
-            {/* <DeleteConfirm
-                close={close}
-                hidden={hidden}
-                deleteID={deleteID}
-            /> */}
         </div>
     );
 };

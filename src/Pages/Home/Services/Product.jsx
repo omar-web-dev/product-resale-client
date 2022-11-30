@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PrivateRoute from '../../../Route/PrivetRoute/PrivetRoute';
 import BookModel from '../../Componets/BookModel';
 import Categorize from '../Category/Categorize';
-// import Categorize from './Categorize';
-import ProductCard from './ProductCard';
+import ProductCategoryCard from '../Category/ProductCategoryCard';
 
 const Product = () => {
+    let s
+    const [toggle, setToggle] = useState(s === !s)
+    const [booking, setBooking] = useState({})
     const [products, setProducts] = useState([])
     const [categorize, setCategorize] = useState([])
     useEffect(() => {
@@ -32,10 +34,27 @@ const Product = () => {
                     </div>
                 </PrivateRoute>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-7">
-                {products.map(pt => <ProductCard key={pt?._id} id={pt?._id} product={pt} />)}
-            </div>
+            <div className="grid md:gap-7 gap-2">
+                {products.map(pt =>
+                    <ProductCategoryCard
+                        setToggle={setToggle}
+                        setBooking={setBooking}
+                        id={pt._id}
+                        key={pt._id}
+                        product={pt}
+                    />
 
+                )}
+
+
+                {/* <ProductCard key={pt?._id} id={pt?._id} product={pt} /> */}
+
+            </div>
+            <BookModel
+                booking={booking}
+                toggle={toggle}
+                setToggle={setToggle}
+            />
         </section>
     );
 };

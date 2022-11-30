@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {useLocation, useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../../../Context/AuthProvide";
+import moment from "moment";
+
 
 
 const AddProduct = () => {
     const notify = () => toast("Wow Product added!");
     const [categorize, setCategorize] = useState([])
     const navigate = useNavigate();
-    const {loading} = useContext(AuthContext)
+    const currentDate = moment().format("DD-MM-YYYY hh:mm")
+    const productStatus = true
 
 
     useEffect(() => {
@@ -18,31 +21,50 @@ const AddProduct = () => {
             .then(data => setCategorize(data))
     }, [])
 
+
     const { user } = useContext(AuthContext)
-    const userEmail = user?.email
+    const sellerEmail = user?.email
+    const sellerName = user?.displayName
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [error, setError] = useState()
 
     const handleAddProduct = (data) => {
-        setError('');
-        saveUser(
-            data.productTitle,
-            data.price,
-            data.oldPrice,
-            data.usedYear,
-            data.condition,
-            data.category,
-            data.city,
-            data.state,
-            data.zip,
-            data.phone
-        );
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=6a56f720ef5af169c2b3789d5fb3086f`
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    setError('');
+                    saveUser(
+                        data.productTitle,
+                        data.price,
+                        data.oldPrice,
+                        data.usedYear,
+                        data.condition,
+                        data.category,
+                        data.city,
+                        data.state,
+                        data.zip,
+                        data.phone,
+                        {photo :  imgData?.data?.url }
+                    );
+                    
+
+                }
+            })
+
     }
 
-    const saveUser = (productTitle, price, oldPrice, usedYear, condition,category, city, state, zip, phone) => {
-        const user = { productTitle, price, oldPrice, usedYear, condition, city, state, zip, email: userEmail , category, phone};
-        console.log(user)
+    const saveUser = (productTitle, price, oldPrice, usedYear, condition, category, city, state, zip, phone, productImage) => {
+        const user = { productTitle, price, oldPrice, usedYear, condition, city, state, zip, email: sellerEmail, name : sellerName, category, phone, productImage, currentDate, productStatus };
+        
         fetch('http://localhost:5000/add-product', {
             method: 'POST',
             headers: {
@@ -55,10 +77,8 @@ const AddProduct = () => {
                 if (data?.acknowledged) {
                     notify()
                     navigate('../my-product');
-                    // {loading}
-                    // alert('product added')
                 }
-                if(!data?.acknowledged){
+                if (!data?.acknowledged) {
                     navigate('../../')
                 }
                 console.log(data)
@@ -68,12 +88,12 @@ const AddProduct = () => {
                 setError(errorMessage)
             });
 
-            
+
     }
 
     return (
         <section className="p-6 bg-gray-100 text-gray-800">
-             <ToastContainer />
+            <ToastContainer />
             <form onSubmit={handleSubmit(handleAddProduct)} className="container w-max-68 flex  mx-auto space-y-12 ">
                 <fieldset className=" gap-6 p-6 rounded-md shadow-sm ">
                     <div className="justify-center grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
@@ -133,7 +153,7 @@ const AddProduct = () => {
                                 })}
                                 className="w-full rounded-md focus:ring p-2 focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 text-gray-900" />
                         </div>
-                        <div className="col-span-full  sm:col-span-2">
+                        <div className="col-span-full">
                             <label htmlFor="phone" className="text-sm">Phone</label>
                             <input id="city" type="text"
                                 {...register("phone", {

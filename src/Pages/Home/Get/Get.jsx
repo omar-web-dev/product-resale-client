@@ -3,20 +3,20 @@ import React from 'react';
 const Get = () => {
     return (
         <div>
-            <div className="my-20 text-gray-900 mx-auto max-w-[1440px] rounded-lg border border-blue-300  w-full:">
-                <div className="container w-full p-10 py-6 mx-auto flex">
-                    <div className="mt-3">
-                        <img src="https://ibb.co/xgn1HPM" alt="seller" />
+            <div className="my-20 text-gray-900 mx-5  md:mx-auto max-w-[1440px] rounded-lg border border-blue-300  w-full:">
+                <div className="container w-full  p-10 py-6 md:mx-auto flex">
+                    <div className="hidden md:block mt-3 mr-10">
+                        <img src="https://i.ibb.co/LSzhGdy/seller.png" alt="seller" />
                     </div>
                     <div className="mt-3">
                         <p className="text-2xl font-bold hover:underline">Get items delivered to you with
                         </p>
                         <p className="mt-2">Choose from over 4,500 items that can be delivered to your doorstep. Order online and enjoy our Buyer Protection program, which means that we’ll replace the item for FREE if it’s not as described in the ad!</p>
-                        <button className="btn btn-success btn-sm text-blue-900 ">Shope now</button>
+                        <button className="btn mt-2  btn-success btn-sm text-blue-900 ">Shope now</button>
                     </div>
                 </div>
             </div>
-            <div className="my-20 text-gray-900 mx-auto max-w-[1440px] rounded-lg shadow-xm  w-full:">
+            <div className="md:my-20 my-10  text-gray-900 mx-5 md:mx-auto max-w-[1440px] rounded-lg shadow-xm  w-full:">
                 <div className="container w-full p-10 py-6 mx-auto border ">
                     <div className="mt-3">
                         <p className="text-2xl font-bold">
@@ -25,7 +25,7 @@ const Get = () => {
                         <p className="mt-2">
                             Aspen Home is a platform on which you can buy and sell almost everything! We help people buy and sell vehicles, find properties, get jobs or recruit employees, buy and sell mobile phones, purchase electronic products, and much more. With more than 50 categories our solutions are built to be safe, smart, and convenient for our customers.
                         </p>
-                        <p className="text-2xl font-semibold ">
+                        <p className="text-2xl font-semibold mt-5">
                             Buy, Sell, Rent, or Find Jobs in Bangladesh
                         </p>
                         <p className="mt-2">

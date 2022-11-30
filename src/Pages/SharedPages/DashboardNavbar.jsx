@@ -15,7 +15,6 @@ const DashboardNavbar = () => {
         .then(data => setRealUser(data[0]))
     },[user?.email])
     
-    console.log(isAdmin, isSeller, isBuyer)
 
     const handleSingOut = () => {
         userSignOut()
@@ -29,13 +28,6 @@ const DashboardNavbar = () => {
     const navItems = 
         <>
             <li><Link to='/'>Home</Link></li>
-            {isAdmin?
-            <li><Link to='../dashboard'>Dashboard</Link></li>
-            :(isSeller) ?
-            <li><Link to='../dashboard'>Dashboard</Link></li>
-            :
-            <li><Link to='../dashboard'>Dashboard</Link></li>
-            }
         </>
     return (
         <div className="mx-auto max-w-[1440px] py-5 px-[3%]">

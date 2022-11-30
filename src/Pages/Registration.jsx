@@ -1,7 +1,8 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../Context/AuthProvide';
 
 
@@ -15,10 +16,16 @@ const Registration = () => {
     // const [token] = useToken(userEmail);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const imageKey = process.env.REACT_APP_image_key;
+    const verified = false
+
+    if(user?.uid){
+        return <Navigate to='/'></Navigate>
+    }
 
     const handleSignUp = (data) => {
         setCheckCondition(data?.checkCondition)
         setError('');
+
 
         const image = data.image[0];
         const formData = new FormData();
@@ -62,8 +69,10 @@ const Registration = () => {
             })
     }
     const handelGoogleLogIn = (email) => {
+        const loginTost = () => toast("Sign In Successful!");
         googleLongIn(googleProvider)
             .then((result) => {
+                loginTost()
                 setUserEmail(email);
                 const user = result.user;
                 saveUser(
@@ -78,9 +87,11 @@ const Registration = () => {
                 setError(errorMessage)
             });
     }
-    const saveUser = (name, email, phone, location, userStatus, password ) => {
-        const user = { name, email, phone, location, userStatus, password };
 
+
+    const saveUser = (name, email, phone, location, userStatus, password) => {
+        const notify = () => toast("Registration Successful!");
+        const user = { name, email, phone, location, userStatus, password, verified };
         fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
@@ -91,11 +102,14 @@ const Registration = () => {
             .then(res => res.json())
             .then(data => {
                 setUserEmail(email);
+                notify()
+                return <Navigate to="/"></Navigate >;
             })
     }
 
     return (
         <div className='py-20 flex justify-center bg-[#093444] '>
+            <ToastContainer />
             <div className='w-96 p-7'>
                 <h2 className='text-5xl text-center font-semibold font-[Lexend Deca] text-white'>Registration</h2>
                 <form onSubmit={handleSubmit(handleSignUp)}>
@@ -136,7 +150,7 @@ const Registration = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
                     </div>
-                    
+
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="text-white label-text">Password</span></label>
                         <input type="password" {...register("password", {

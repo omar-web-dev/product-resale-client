@@ -1,8 +1,6 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Context/AuthProvide";
+import { useEffect, useState } from "react";
 
 const useBuyer = buyer => {
-    // const {user} = useContext(AuthContext)
     const [isBuyer, setIsBuyer] = useState(false);
     
     console.log(buyer)
@@ -18,7 +16,6 @@ const useBuyer = buyer => {
             }
             
     }, [buyer])
-    console.log(isBuyer)
     return [isBuyer , sellerLoading]
 }
 

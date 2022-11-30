@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from 'react';
-// import { confirmAlert } from 'react-confirm-alert'; // Import
-// import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 
-// onClick={() => {
-//   this.handleClickDelete();
-//   onClose();
-// }}
-      
 const DeleteConfirm = ({ hidden, close, deleteID}) => {
-  // const [close , setClose] = useState(false)
-  
-
-
-
   const handelDelete = (deleteID) => {
     // delete IP
 
