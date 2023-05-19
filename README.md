@@ -1,7 +1,7 @@
 Hi, this is a sales application. If you have an old product and this product is not worth it to you, this item is the seller and you are buying a second-hand product.
 
 
-## Functionality
+##Functionality
     1. User added
         1.1 Can book an available.
         1.2 Can Report a seller her selling product (coming son)
@@ -21,6 +21,6 @@ Hi, this is a sales application. If you have an old product and this product is 
     4. if product already sold this product can't a book another user/buyer 
     5. online chating a buyer and seller (coming son).
 
-    Visite Now: #<a href"https://aspen-home-dfc96.web.app">Live</a> 
+    Visite Now: <a href"https://aspen-home-dfc96.web.app">Live</a> 
 
     Thank you.
